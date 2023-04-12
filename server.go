@@ -38,6 +38,35 @@ func main() {
 		log.Fatal(err)
 	}
 
+	richMenu := linebot.RichMenu{
+		Size:        linebot.RichMenuSize{Width: 2500, Height: 1686},
+		Selected:    true,
+		Name:        "Nice richmenu",
+		ChatBarText: "Tap here",
+		Areas: []linebot.AreaDetail{
+			{
+				Bounds: linebot.RichMenuBounds{X: 0, Y: 0, Width: 2500, Height: 1686},
+				Action: linebot.RichMenuAction{
+					Type: linebot.RichMenuActionTypeURI,
+					URI:  "https://www.google.com",
+				},
+			},
+		},
+	}
+
+	res, err := bot.CreateRichMenu(richMenu).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if _, err := bot.UploadRichMenuImage(res.RichMenuID, "image/udon2.jpeg").Do(); err != nil {
+		log.Fatal(err)
+	}
+
+	if _, err := bot.SetDefaultRichMenu(res.RichMenuID).Do(); err != nil {
+		log.Fatal(err)
+	}
+
 	// Setup HTTP Server for receiving requests from LINE platform
 	http.HandleFunc("/callback", func(w http.ResponseWriter, req *http.Request) {
 		events, err := bot.ParseRequest(req)
