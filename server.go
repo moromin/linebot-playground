@@ -45,10 +45,18 @@ func main() {
 		ChatBarText: "Tap here",
 		Areas: []linebot.AreaDetail{
 			{
-				Bounds: linebot.RichMenuBounds{X: 0, Y: 0, Width: 2500, Height: 1686},
+				Bounds: linebot.RichMenuBounds{X: 0, Y: 0, Width: 1250, Height: 843},
 				Action: linebot.RichMenuAction{
 					Type: linebot.RichMenuActionTypeURI,
 					URI:  "https://www.google.com",
+				},
+			},
+			{
+				Bounds: linebot.RichMenuBounds{X: 1250, Y: 0, Width: 1250, Height: 843},
+				Action: linebot.RichMenuAction{
+					Type: linebot.RichMenuActionTypeDatetimePicker,
+					Data: "storeId=12345",
+					Mode: "datetime",
 				},
 			},
 		},
